@@ -9,14 +9,14 @@ BackboneOtter.sync = function(method, model, options) {
       var success = options.success;
       options.success = function(resp) {
         if (!window.otter.cache.models) window.otter.cache.models = {};
-          window.otter.cache.models[url] = resp
+          window.otter.cache.models[url] = resp;
           if (success) success.apply(this, arguments);
       };
     }
     else {
       if (window.otter.cache.models && window.otter.cache.models[url] && options.success) {
-        options.success(window.otter.cache.models[url]);
-        deferred = jQuery.Deferred();
+        options.success(model, window.otter.cache.models[url], options);
+        var deferred = jQuery.Deferred();
         deferred.resolve();
         return deferred.promise();
       }
